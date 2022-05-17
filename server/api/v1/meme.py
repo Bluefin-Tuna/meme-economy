@@ -13,4 +13,4 @@ class Meme():
         self.uuid = self.__class__.__instances__ 
 
         self.__class__.__instances__ += 1
-
+        
