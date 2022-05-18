@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+from MEServer.core import security
 
-app = FastAPI()
+# app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+# @app.get("/")
+# async def root():
+#     return {"message": "Hello World"}
