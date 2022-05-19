@@ -1,5 +1,4 @@
-from pydantic import BaseModel, BaseSettings, Field, PostgresDsn, RedisDsn
-from typing import List, Optional
+from pydantic import BaseModel
 
 class ExtraSettings(BaseModel):
 
