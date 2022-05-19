@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from MEServer.core import security
+from me.core import security
 
 # app = FastAPI()
 

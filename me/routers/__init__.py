@@ -1,3 +1,3 @@
 # lol
 
-import MEServer
+import me
