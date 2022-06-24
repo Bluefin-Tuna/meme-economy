@@ -9,6 +9,12 @@ class Auction(models.Model):
     starts_at = models.DateTimeField()
     ends_at = models.DateTimeField()
 
+    def __str__(self) -> str:
+        return f"{self.id} {self.starts_at}-{self.ends_at}"
+    
+    def __repr__(self) -> str:
+        return f"<Auction {self.id}>"
+
 class Bid(models.Model):
 
     id = models.AutoField(primary_key = True)
@@ -23,3 +29,9 @@ class Bid(models.Model):
     value = models.IntegerField()
 
     created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return f"{self.user} {self.value}"
+    
+    def __repr__(self) -> str:
+        return f"<Bid {self.id}>"

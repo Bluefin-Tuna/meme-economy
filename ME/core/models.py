@@ -40,4 +40,4 @@ class Meme(models.Model):
         return self.name
     
     def __repr__(self) -> str:
-        return f"<Meme {self.id}"
+        return f"<Meme {self.id}>"
