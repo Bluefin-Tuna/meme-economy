@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
+    'auction.apps.AuctionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,6 +83,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "core.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -120,8 +123,8 @@ USE_TZ = True
 
 if not DEBUG:
     STATIC_URL = os.path.join(os.path.dirname(BASE_DIR), "static")
-STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "static")]
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
+STATIC_URL = os.path.join(os.path.dirname(BASE_DIR), "static/")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
