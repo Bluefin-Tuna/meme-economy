@@ -4,7 +4,7 @@ from core.models import User
 
 class Auction(models.Model):
     
-    id = models.AutoField(primary_key = True)
+    id = models.BigAutoField(primary_key = True)
 
     starts_at = models.DateTimeField()
     ends_at = models.DateTimeField()
@@ -18,7 +18,7 @@ class Auction(models.Model):
 
 class Meme(models.Model):
     
-    id = models.AutoField(primary_key = True)
+    id = models.BigAutoField(primary_key = True)
     owner = models.ForeignKey(User, related_name = "memes", on_delete = models.SET_NULL, null = True)
     auction = models.ForeignKey(Auction, related_name = "memes", on_delete = models.SET_NULL, null = True)
 
@@ -41,7 +41,7 @@ class Meme(models.Model):
 
 class Bid(models.Model):
 
-    id = models.AutoField(primary_key = True)
+    id = models.BigAutoField(primary_key = True)
 
     user = models.OneToOneField(
         User,

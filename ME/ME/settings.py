@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'graphene_django',
+    # 'rest_framework',
     'core.apps.CoreConfig',
     'auction.apps.AuctionConfig',
     'django.contrib.admin',
@@ -130,3 +132,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GRAPHENE = {
+    "SCHEMA": ["core.schema.schema", "auction.schema.schema"]
+}
