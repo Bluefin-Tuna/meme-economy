@@ -1,5 +1,4 @@
-import graphene
-from graphene_django import DjangoObjectType, DjangoListField
+from graphene_django import DjangoObjectType
 from auction.models import Auction, Meme, Bid
 
 class AuctionType(DjangoObjectType):
