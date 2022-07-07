@@ -1,6 +1,7 @@
 from typing import List
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 class User(AbstractUser):
 
@@ -9,11 +10,19 @@ class User(AbstractUser):
     email = models.EmailField(unique = True)
     username = models.CharField(max_length = 50, unique = True, null = False, blank = False)
 
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    date_joined = models.DateTimeField(editable = False)
+    date_updated = models.DateTimeField()
 
     USERNAME_FIELD: str = "email"
     REQUIRED_FIELDS: List[str] = ["username", "password", "first_name", "last_name"]
+
+    def save(self, *args, **kwargs):
+        
+        if not self.id:
+            self.date_joined = timezone.now()
+        self.date_updated = timezone.now()
+
+        return super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username

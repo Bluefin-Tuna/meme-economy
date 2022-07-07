@@ -5,7 +5,7 @@ from auction.GQL.types import MemeType
 class MemeQueries(graphene.ObjectType):
 
     all_memes = graphene.List(MemeType)
-    meme = graphene.Field(MemeType, id = graphene.Int)
+    meme = graphene.Field(MemeType, id = graphene.Int())
 
     def resolve_all_memes(self, info, **kwargs):
         return Meme.objects.get()

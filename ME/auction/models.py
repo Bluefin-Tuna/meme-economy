@@ -6,7 +6,10 @@ class Auction(models.Model):
     
     id = models.BigAutoField(primary_key = True)
 
-    starts_at = models.DateTimeField()
+    initial_price = models.PositiveBigIntegerField(nullable = False)
+    limit = models.PositiveBigIntegerField(nullable = True)
+
+    starts_at = models.DateTimeField(auto_now_add = True)
     ends_at = models.DateTimeField()
 
     def __str__(self) -> str:
