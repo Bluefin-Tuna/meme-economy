@@ -18,11 +18,14 @@ class CreateAuction(graphene.Mutation):
             starts_at = information.starts_at,
             ends_at = information.ends_at,
         )
-        auction.limit = information.limit
+        
+        if(hasattr(information, "limit")):
+            auction.limit = int(information.limit)
 
         auction.save()
 
         return CreateAuction(auction = auction)
+
 
 class UpdateAuction(graphene.Mutation):
 
@@ -37,5 +40,27 @@ class UpdateAuction(graphene.Mutation):
         auction = Auction.objects.get(id = information.id)
 
         if(auction):
-            auction.
+            
+            for key in information:
+                exec(f'auction.{key} = information.{key}')
+            auction.save()
+
+            return UpdateAuction(auction = auction)
         
+        return UpdateAuction(auction = None)
+
+
+class DeleteAuction(graphene.Mutation):
+
+    class Arguments:
+        information = DeleteAuctionInput(required = True)
+
+    auction = graphene.Field(AuctionType)
+
+    @staticmethod
+    def mutate(root, info, information = None):
+
+        auction = Auction.objects.get(id = information.id)
+        auction.delete()
+
+        return None

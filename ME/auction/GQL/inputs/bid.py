@@ -1,6 +1,6 @@
 import graphene
 
-class BidInput(graphene.InputObjectType):
+class CreateBidInput(graphene.InputObjectType):
 
     user = graphene.ID(required = True)
     auction = graphene.ID(required = True)
