@@ -6,7 +6,7 @@ from django.utils import timezone
 class User(AbstractUser):
 
     id = models.BigAutoField(primary_key = True)
-
+    
     email = models.EmailField(unique = True)
     username = models.CharField(max_length = 50, unique = True, null = False, blank = False)
 
