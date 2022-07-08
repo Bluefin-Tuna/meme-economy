@@ -55,7 +55,7 @@ class Bid(models.Model):
 
     id = models.BigAutoField(primary_key = True)
 
-    user = models.OneToOneField(
+    profile = models.OneToOneField(
         Profile,
         related_name = "auction",
         on_delete = models.CASCADE,

@@ -18,10 +18,8 @@ class CreateAuction(graphene.Mutation):
             starts_at = information.starts_at,
             ends_at = information.ends_at,
         )
-        
         if(hasattr(information, "limit")):
             auction.limit = int(information.limit)
-
         auction.save()
 
         return CreateAuction(auction = auction)

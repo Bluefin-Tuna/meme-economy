@@ -39,7 +39,7 @@ class UpdateMeme(graphene.Mutation):
         meme = Meme.objects.get(id = information.id)
 
         if(meme):
-            
+
             for key in information:
                 exec(f'meme.{key} = information.{key}')
             meme.save()
