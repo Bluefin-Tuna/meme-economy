@@ -11,7 +11,7 @@ class User(AbstractUser):
     username = models.CharField(max_length = 50, unique = True, null = False, blank = False)
 
     date_joined = models.DateTimeField(editable = False)
-    date_updated = models.DateTimeField()
+    date_updated = models.DateTimeField(default = timezone.now)
 
     USERNAME_FIELD: str = "email"
     REQUIRED_FIELDS: List[str] = ["username", "password", "first_name", "last_name"]
@@ -20,6 +20,8 @@ class User(AbstractUser):
         
         if not self.id:
             self.date_joined = timezone.now()
+            self.date_updated = timezone.now()
+
         self.date_updated = timezone.now()
 
         return super(User, self).save(*args, **kwargs)

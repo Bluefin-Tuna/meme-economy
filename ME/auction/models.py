@@ -7,8 +7,10 @@ class Auction(models.Model):
     
     id = models.BigAutoField(primary_key = True)
 
-    initial_price = models.PositiveBigIntegerField(nullable = False)
-    limit = models.PositiveBigIntegerField(nullable = True)
+    author = models.ForeignKey(Profile, related_name = "auctions", on_delete = models.SET_NULL, null = True)
+
+    initial_price = models.PositiveBigIntegerField(null = False, default = 0)
+    limit = models.PositiveBigIntegerField(null = True)
 
     starts_at = models.DateTimeField()
     ends_at = models.DateTimeField()
@@ -34,12 +36,13 @@ class Meme(models.Model):
     file = models.FileField(upload_to = "memes", null = False, unique = True, editable = False)
 
     created_at = models.DateTimeField(editable = False)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(default = timezone.now)
 
     def save(self, *args, **kwargs):
         
         if not self.id:
             self.created_at = timezone.now()
+            self.updated_at = timezone.now()
         self.updated_at = timezone.now()
 
         return super(Meme, self).save(*args, **kwargs)
@@ -55,14 +58,9 @@ class Bid(models.Model):
 
     id = models.BigAutoField(primary_key = True)
 
-    profile = models.OneToOneField(
-        Profile,
-        related_name = "auction",
-        on_delete = models.CASCADE,
-        primary_key = False
-    )
+    profile = models.ForeignKey(Profile, related_name = "bids", on_delete = models.SET_NULL, null = True) # Will be changed to model.SET logic later down the line.
     auction = models.ForeignKey(Auction, related_name = "bids", on_delete = models.CASCADE)
-    value = models.IntegerField()
+    value = models.IntegerField(null = False)
 
     created_at = models.DateTimeField(editable = False)
 
