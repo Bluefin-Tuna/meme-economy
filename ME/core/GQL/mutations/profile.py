@@ -1,15 +1,16 @@
 import graphene
 
-from ME.core.GQL.inputs.profile import CreateProfileInput, UpdateProfileInput
-from ME.core.GQL.types import ProfileType
-from ME.core.models import Profile, User
+from core.GQL.inputs.profile import CreateProfileInput, UpdateProfileInput
+from core.GQL.types import ProfileType
+from core.models import Profile, User
+
 
 class CreateProfile(graphene.Mutation):
 
     class Arguments:
         information = CreateProfileInput(required = True)
     
-    profile = ProfileType()
+    profile = graphene.Field(ProfileType)
 
     @staticmethod
     def mutate(root, info, information = None):
@@ -23,12 +24,13 @@ class CreateProfile(graphene.Mutation):
 
         return CreateProfile(profile = profile)
 
+
 class UpdateProfile(graphene.Mutation):
 
     class Arguments:
         information = UpdateProfileInput(required = True)
     
-    profile = ProfileType()
+    profile = graphene.Field(ProfileType)
 
     @staticmethod
     def mutate(root, info, information = None):
@@ -44,3 +46,10 @@ class UpdateProfile(graphene.Mutation):
             return UpdateProfile(profile = profile)
         
         return UpdateProfile(profile = None)
+
+
+
+class ProfileMutation(graphene.ObjectType):
+    
+    create_profile = CreateProfile.Field()
+    update_profile = UpdateProfile.Field()

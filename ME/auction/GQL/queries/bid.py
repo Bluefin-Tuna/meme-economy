@@ -2,7 +2,7 @@ import graphene
 from auction.models import Bid
 from auction.GQL.types import BidType
 
-class BidQueries(graphene.ObjectType):
+class BidQuery(graphene.ObjectType):
 
     all_bids = graphene.List(BidType)
     bid = graphene.Field(BidType, id = graphene.Int())

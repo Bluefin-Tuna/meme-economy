@@ -1,14 +1,15 @@
 import graphene
-from ME.core.models import User
-from ME.core.GQL.inputs.user import CreateUserInput, DeleteUserInput, UpdateUserInput
-from ME.core.GQL.types import UserType
+from core.models import User
+from core.GQL.inputs.user import CreateUserInput, DeleteUserInput, UpdateUserInput
+from core.GQL.types import UserType
+
 
 class CreateUser(graphene.Mutation):
 
     class Arguments:
         information = CreateUserInput(required = True)
     
-    user = UserType()
+    user = graphene.Field(UserType)
 
     @staticmethod
     def mutate(root, info, information = None):
@@ -24,12 +25,13 @@ class CreateUser(graphene.Mutation):
 
         return CreateUser(user = user)
 
+
 class UpdateUser(graphene.Mutation):
 
     class Arguments:
         information = UpdateUserInput(required = True)
     
-    user = UserType()
+    user = graphene.Field(UserType)
 
     @staticmethod
     def mutate(root, info, information = None):
@@ -46,12 +48,13 @@ class UpdateUser(graphene.Mutation):
         
         return UpdateUser(user = None)
 
+
 class DeleteUser(graphene.Mutation):
 
     class Arguments:
         information = DeleteUserInput(required = True)
     
-    user = UserType()
+    user = graphene.Field(UserType)
 
     @staticmethod
     def mutate(root, info, information = None):
@@ -60,3 +63,11 @@ class DeleteUser(graphene.Mutation):
         user.delete()
 
         return None
+
+
+
+class UserMutation(graphene.ObjectType):
+
+    create_user = CreateUser.Field()
+    update_user = UpdateUser.Field()
+    delete_user = DeleteUser.Field()

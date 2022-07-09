@@ -2,7 +2,7 @@ import graphene
 from core.models import User
 from core.GQL.types import UserType
 
-class UserQueries(graphene.ObjectType):
+class UserQuery(graphene.ObjectType):
 
     all_users = graphene.List(UserType)
     user = graphene.Field(UserType, id = graphene.Int())

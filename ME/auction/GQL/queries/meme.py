@@ -2,7 +2,7 @@ import graphene
 from auction.models import Meme
 from auction.GQL.types import MemeType
 
-class MemeQueries(graphene.ObjectType):
+class MemeQuery(graphene.ObjectType):
 
     all_memes = graphene.List(MemeType)
     meme = graphene.Field(MemeType, id = graphene.Int())

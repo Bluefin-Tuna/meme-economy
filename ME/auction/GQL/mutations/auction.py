@@ -1,7 +1,8 @@
 import graphene
-from ME.auction.GQL.inputs.auction import CreateAuctionInput, UpdateAuctionInput, DeleteAuctionInput
-from ME.auction.models import Auction
-from ME.auction.GQL.types import AuctionType
+from auction.GQL.inputs.auction import CreateAuctionInput, UpdateAuctionInput, DeleteAuctionInput
+from auction.models import Auction
+from auction.GQL.types import AuctionType
+
 
 class CreateAuction(graphene.Mutation):
 
@@ -62,3 +63,11 @@ class DeleteAuction(graphene.Mutation):
         auction.delete()
 
         return None
+
+
+
+class AuctionMutation(graphene.ObjectType):
+
+    create_auction = CreateAuction.Field()
+    update_auction = UpdateAuction.Field()
+    delete_auction = DeleteAuction.Field()

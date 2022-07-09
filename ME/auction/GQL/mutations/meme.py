@@ -1,8 +1,9 @@
 import graphene
-from ME.auction.GQL.inputs.meme import CreateMemeInput, UpdateMemeInput, DeleteMemeInput
-from ME.core.models import Profile
-from ME.auction.models import Meme
-from ME.auction.GQL.types import MemeType
+from auction.GQL.inputs.meme import CreateMemeInput, UpdateMemeInput, DeleteMemeInput
+from core.models import Profile
+from auction.models import Meme
+from auction.GQL.types import MemeType
+
 
 class CreateMeme(graphene.Mutation):
 
@@ -63,3 +64,11 @@ class DeleteMeme(graphene.Mutation):
         meme.delete()
 
         return None
+
+
+
+class MemeMutation(graphene.ObjectType):
+
+    create_meme = CreateMeme.Field()
+    update_meme = UpdateMeme.Field()
+    delete_meme = DeleteMeme.Field()

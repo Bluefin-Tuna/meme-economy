@@ -2,7 +2,7 @@ import graphene
 
 class CreateAuctionInput(graphene.InputObjectType):
     
-    meme = graphene.List(graphene.NonNull(graphene.ID()))
+    meme = graphene.List(graphene.NonNull(graphene.ID))
     initial_price = graphene.Int(required = True)
     limit = graphene.Int()
     starts_at = graphene.DateTime(required = True)

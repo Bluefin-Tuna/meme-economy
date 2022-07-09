@@ -134,5 +134,5 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media/")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GRAPHENE = {
-    "SCHEMA": "ME.schema.schema"
+    "SCHEMA": "schema.schema"
 }
