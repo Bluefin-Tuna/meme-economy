@@ -33,7 +33,7 @@ class Meme(models.Model):
     likes = models.IntegerField(default = 0)
     views = models.IntegerField(default = 0)
     price = models.IntegerField(default = 0)
-    file = models.FileField(upload_to = "memes", null = False, unique = True, editable = False)
+    file = models.FileField(upload_to = "uploads/", null = False, unique = True, editable = False)
 
     created_at = models.DateTimeField(editable = False)
     updated_at = models.DateTimeField(default = timezone.now)

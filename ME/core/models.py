@@ -44,7 +44,7 @@ class Profile(models.Model):
     )
 
     assets = models.BigIntegerField(default = 1000)
-    profile_picture = models.ImageField(upload_to = "pfp", null = True)
+    profile_picture = models.ImageField(upload_to = "pfp/%Y/%m/%d/%H/%M/%S/", null = True)
 
     def __str__(self) -> str:
         return f"{self.user} {self.assets}"
