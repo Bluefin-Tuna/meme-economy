@@ -26,3 +26,5 @@ class ProfileFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     assets = random.randint(0, 10000)
     profile_picture = factory.django.ImageField(color = "blue")
+
+    

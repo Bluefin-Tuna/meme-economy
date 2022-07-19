@@ -8,7 +8,7 @@ class BidFactory(DjangoModelFactory):
     class Meta:
         model = Bid
     
-    
+
 
 class MemeFactory(DjangoModelFactory):
     
@@ -19,6 +19,9 @@ class MemeFactory(DjangoModelFactory):
 
 class AuctionFactory(DjangoModelFactory):
     
+    
+
+
     class Meta:
         model = Auction
     

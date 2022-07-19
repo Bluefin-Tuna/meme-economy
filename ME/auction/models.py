@@ -7,7 +7,8 @@ class Auction(models.Model):
     
     id = models.BigAutoField(primary_key = True)
 
-    author = models.ForeignKey(Profile, related_name = "auctions", on_delete = models.SET_NULL, null = True)
+    author = models.ForeignKey(Profile, related_name = "auctions_authored", on_delete = models.SET_NULL, null = True)
+    participants = models.ManyToManyField(Profile, related_name = "auctions_participated", through = "Bid")
 
     initial_price = models.PositiveBigIntegerField(null = False, default = 0)
     limit = models.PositiveBigIntegerField(null = True)
@@ -56,10 +57,10 @@ class Meme(models.Model):
 
 class Bid(models.Model):
 
-    id = models.BigAutoField(primary_key = True)
-
     profile = models.ForeignKey(Profile, related_name = "bids", on_delete = models.SET_NULL, null = True) # Will be changed to model.SET logic later down the line.
     auction = models.ForeignKey(Auction, related_name = "bids", on_delete = models.CASCADE)
+    
+    highest = models.BooleanField(default = True)
     value = models.IntegerField(null = False)
 
     created_at = models.DateTimeField(editable = False)
