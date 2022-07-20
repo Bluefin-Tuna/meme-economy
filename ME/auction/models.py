@@ -13,8 +13,8 @@ class Auction(models.Model):
     initial_price = models.PositiveBigIntegerField(null = False, default = 0)
     limit = models.PositiveBigIntegerField(null = True)
 
-    starts_at = models.DateTimeField(null = False)
-    ends_at = models.DateTimeField(null = False)
+    starts_at = models.DateTimeField()
+    ends_at = models.DateTimeField()
 
     def __str__(self) -> str:
         return f"{self.id} {self.starts_at}-{self.ends_at}"
@@ -30,7 +30,7 @@ class Meme(models.Model):
     auction = models.ForeignKey(Auction, related_name = "memes", on_delete = models.SET_NULL, null = True)
 
     name = models.CharField(max_length = 50, null = False)
-    description = models.CharField(max_length = 200, default = "")
+    description = models.TextField(max_length = 200, default = "")
     likes = models.IntegerField(default = 0)
     views = models.IntegerField(default = 0)
     price = models.IntegerField(default = 0)
@@ -60,7 +60,6 @@ class Bid(models.Model):
     profile = models.ForeignKey(Profile, related_name = "bids", on_delete = models.SET_NULL, null = True) # Will be changed to model.SET logic later down the line.
     auction = models.ForeignKey(Auction, related_name = "bids", on_delete = models.CASCADE)
     
-    highest = models.BooleanField(default = True)
     value = models.IntegerField(null = False)
 
     created_at = models.DateTimeField(editable = False)
