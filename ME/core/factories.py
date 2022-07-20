@@ -15,7 +15,10 @@ class UserFactory(DjangoModelFactory):
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
 
-    profile = factory.RelatedFactory("core.factories.ProfileFactory", "user")
+    profile = factory.RelatedFactory(
+        "core.factories.ProfileFactory", 
+        factory_related_name = "user",
+    )
 
 
 class ProfileFactory(DjangoModelFactory):
@@ -23,8 +26,10 @@ class ProfileFactory(DjangoModelFactory):
     class Meta:
         model = Profile
     
-    user = factory.SubFactory(UserFactory)
     assets = random.randint(0, 10000)
     profile_picture = factory.django.ImageField(color = "blue")
-
     
+    user = factory.SubFactory(
+        "core.factories.UserFactory", 
+        profile = None,
+    )
