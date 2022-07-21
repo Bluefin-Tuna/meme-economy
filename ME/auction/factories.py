@@ -28,7 +28,6 @@ class MemeFactory(DjangoModelFactory):
     
     class Meta:
         model = Meme
-        django_get_or_create = ('owner',)
     
     name = factory.Faker('sentence', nb_words = 3)
     description = factory.Faker("paragraph", nb_sentences = 3)
