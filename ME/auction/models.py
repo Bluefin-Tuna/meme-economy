@@ -13,8 +13,8 @@ class Auction(models.Model):
     initial_price = models.PositiveBigIntegerField(null = False, default = 0)
     limit = models.PositiveBigIntegerField(null = True)
 
-    starts_at = models.DateTimeField()
-    ends_at = models.DateTimeField()
+    starts_at = models.DateTimeField(null = True)
+    ends_at = models.DateTimeField(null = True)
 
     def __str__(self) -> str:
         return f"{self.id} {self.starts_at}-{self.ends_at}"
