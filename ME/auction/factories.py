@@ -55,13 +55,6 @@ class AuctionFactory(DjangoModelFactory):
     initial_price = factory.fuzzy.FuzzyInteger(0, 10000)
     starts_at = factory.Faker('future_datetime', end_date = '+365d')
 
-    memes = factory.RelatedFactoryList(
-        "auction.factories.MemeFactory",
-        factory_related_name = "auction",
-        size = lambda: random.randint(1, 3),
-        owner = author
-    )
-
     @factory.post_generation
     def limit(self, create, extracted, **kwargs):
 
@@ -85,3 +78,14 @@ class AuctionFactory(DjangoModelFactory):
             start = self.starts_at,
             end = self.starts_at + timedelta(days = 30)
         )
+    
+    @factory.post_generation
+    def memes(self, create, extracted, **kwargs):
+
+        if(extracted):
+            for obj in extracted:
+                self.memes.add(obj)
+        
+        memes = MemeFactory.create_batch(random.randint(1, 3), owner = self.author)
+        for meme in memes:
+            self.memes.add(meme)

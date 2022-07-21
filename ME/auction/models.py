@@ -60,7 +60,7 @@ class Bid(models.Model):
     profile = models.ForeignKey(Profile, related_name = "bids", on_delete = models.SET_NULL, null = True) # Will be changed to model.SET logic later down the line.
     auction = models.ForeignKey(Auction, related_name = "bids", on_delete = models.CASCADE)
     
-    value = models.IntegerField(null = False)
+    value = models.IntegerField(null = True)
 
     created_at = models.DateTimeField(editable = False)
 
