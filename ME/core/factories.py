@@ -9,8 +9,8 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
     
-    email = factory.Faker("email")
-    username = factory.Faker("user_name")
+    email = factory.Sequence(lambda n: f"user{n}@example.com")
+    username = factory.Sequence(lambda n: f"user{n}")
     password = factory.Faker("password")
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")

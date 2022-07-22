@@ -3,6 +3,7 @@ import random
 import factory, factory.fuzzy
 from factory.django import DjangoModelFactory
 
+from core.factories import ProfileFactory
 from core.models import Profile
 from auction.models import *
 
@@ -21,8 +22,25 @@ class BidFactory(DjangoModelFactory):
     class Meta:
         model = Bid
 
-    profile = factory.SubFactory("core.factories.ProfileFactory")
-    auction = factory.SubFactory("auction.factories.AuctionFactory")
+    profile = factory.Iterator(Profile.objects.all())
+    auction = factory.Iterator(Auction.objects.all())
+
+    @factory.post_generation
+    def value(self, create, extracted, **kwargs):
+        
+        if not self.profile:
+            self.profile = ProfileFactory.create()
+        
+        if not self.auction:
+            self.auction = AuctionFactory.create()
+
+        values = Bid.objects.filter(auction = self.auction.id).values_list('value').all()
+        values = [v[0] for v in values if v[0] != None]
+        if(len(values) <= 1):
+            self.value = self.auction.initial_price
+        else:
+            self.value = max(values) + random.randint(1, 100)
+
 
 class MemeFactory(DjangoModelFactory):
     
@@ -64,8 +82,7 @@ class AuctionFactory(DjangoModelFactory):
         
         if(random.random() <= 0.667):
             self.limit = round(self.initial_price * (1 + random.normalvariate(MU, SIGMA)))
-        
-        return
+            return
     
     @factory.post_generation
     def ends_at(self, create, extracted, **kwargs):
