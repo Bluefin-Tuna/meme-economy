@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'graphene_django',
     # 'rest_framework',
+    'common.apps.CommonConfig',
     'core.apps.CoreConfig',
     'auction.apps.AuctionConfig',
     'django.contrib.admin',

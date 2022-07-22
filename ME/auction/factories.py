@@ -76,12 +76,16 @@ class AuctionFactory(DjangoModelFactory):
     @factory.post_generation
     def limit(self, create, extracted, **kwargs):
 
+        print('entered')
         if(extracted):
+            print('extracted found')
             self.limit = extracted
             return
         
         if(random.random() <= 0.667):
-            self.limit = round(self.initial_price * (1 + random.normalvariate(MU, SIGMA)))
+            print('entered limit creation')
+            self.limit = round(self.initial_price * (1 + abs(random.normalvariate(MU, SIGMA))))
+            print(self.limit)
             return
     
     @factory.post_generation
