@@ -8,7 +8,7 @@ class BidQuery(graphene.ObjectType):
     bid = graphene.Field(BidType, profile = graphene.Int(required = True), auction = graphene.Int(required = True))
 
     def resolve_all_bids(self, info, **kwargs):
-        return Bid.objects.get()
+        return Bid.objects.all()
     
     def resolve_bid(self, info, profile, auction):
         return Bid.objects.get(profile = profile, auction = auction)

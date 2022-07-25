@@ -8,7 +8,7 @@ class MemeQuery(graphene.ObjectType):
     meme = graphene.Field(MemeType, id = graphene.Int())
 
     def resolve_all_memes(self, info, **kwargs):
-        return Meme.objects.get()
+        return Meme.objects.all()
     
     def resolve_meme(self, info, id):
         return Meme.objects.get(id = id)

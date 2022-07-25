@@ -8,7 +8,7 @@ class AuctionQuery(graphene.ObjectType):
     auction = graphene.Field(AuctionType, id = graphene.Int())
 
     def resolve_all_auctions(self, info, **kwargs):
-        return Auction.objects.get()
+        return Auction.objects.all()
     
     def resolve_auction(self, info, id):
         return Auction.objects.get(id = id)
