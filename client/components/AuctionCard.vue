@@ -1,8 +1,10 @@
 <template>
   <v-card class="card">
-    <v-card-title>title</v-card-title>
-    <v-card-subtitle>By: Justin S</v-card-subtitle>
-    <v-card-subtitle class="card-date">Created: 8/20/2022</v-card-subtitle>
+    <v-card-title>{{ title }}</v-card-title>
+    <v-card-subtitle>By: {{ author }}</v-card-subtitle>
+    <v-card-subtitle class="card-date"
+      >Created: {{ memes.createdAt }}</v-card-subtitle
+    >
     <v-img
       src=""
       class="white--text"
@@ -10,10 +12,10 @@
       height="200px"
     >
     </v-img>
-    <v-card-text>This is a meme</v-card-text>
-    <v-card-text>End: 4:22 PM - 8/22/2023</v-card-text>
-    <v-card-text>Highest Bidder: John Cena - $200</v-card-text>
-    <v-card-text>Price: $450</v-card-text>
+    <v-card-text>{{ memes.description }}</v-card-text>
+    <v-card-text>End: {{ endsAt }}</v-card-text>
+    <v-card-text>Limit: {{ limit }}</v-card-text>
+    <v-card-text>Price: {{ initialPrice }}</v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn text> Place Bid </v-btn>
@@ -24,9 +26,19 @@
 
 <script>
 export default {
-  props: {},
-  data() {
-    return {}
+  props: ['auction'],
+  setup(props) {
+    const { author, initialPrice, limit, startsAt, endsAt, memes, bids } =
+      toRefs(props)
+    return {
+      author,
+      initialPrice,
+      limit,
+      startsAt,
+      endsAt,
+      memes,
+      bids,
+    }
   },
 }
 </script>

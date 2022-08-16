@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@nuxtjs/composition-api": "^0.33.1"
+  }
+}

@@ -4,12 +4,7 @@
 
 <script>
 export default {
-  name: 'Auction',
-  data() {
-    return {
-      title: 'Auction Page',
-    }
-  },
+  setup(props) {},
 }
 </script>
 

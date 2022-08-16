@@ -4,12 +4,7 @@
 
 <script>
 export default {
-  name: 'Profile',
-  data() {
-    return {
-      title: 'Profile Page',
-    }
-  },
+  setup(props) {},
 }
 </script>
 
