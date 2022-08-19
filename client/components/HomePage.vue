@@ -17,101 +17,58 @@
       />
     </v-toolbar>
     <v-container fluid class="cards-grid">
-      <v-col v-for="index in 10" :key="index">
-        <MemeCard />
+      <v-col v-for="meme in memeList" :key="meme.id">
+        <h1>{{ meme }}</h1>
+        <MemeCard :meme="meme" />
       </v-col>
     </v-container>
   </v-container>
 </template>
 
 <script>
+import { computed } from '@nuxtjs/composition-api'
+import { mapState } from 'vuex'
+
 export default {
-  data() {
+  setup(props) {
+    const memeList = computed(() => {
+      return this.$store.state.memes.list
+    })
+    console.log(memeList)
+    let loading = false
+    let items = []
+    let search = null
+    let select = null
+
+    const querySelections = (v) => {
+      loading = true
+      // Simulated ajax query
+      setTimeout(() => {
+        items = memeList.filter((e) => {
+          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
+        loading = false
+      }, 500)
+    }
     return {
-      loading: false,
-      items: [],
-      search: null,
-      select: null,
-      memeList: [
-        'Alabama',
-        'Alaska',
-        'American Samoa',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'District of Columbia',
-        'Federated States of Micronesia',
-        'Florida',
-        'Georgia',
-        'Guam',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Marshall Islands',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Northern Mariana Islands',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Palau',
-        'Pennsylvania',
-        'Puerto Rico',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virgin Island',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming',
-      ],
+      ...mapState({ memeList: 'memes/list' }),
+      querySelections,
+      loading,
+      items,
+      search,
+      select,
     }
   },
-  watch: {
+  mounted() {
+    console.log('hello')
+    this.$store.dispatch('memes/fetchMemeList')
+    console.log(this.$store.state.memes.list)
+  },
+  /*watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val)
     },
-  },
-  methods: {
-    querySelections(v) {
-      this.loading = true
-      // Simulated ajax query
-      setTimeout(() => {
-        this.items = this.memeList.filter((e) => {
-          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-        })
-        this.loading = false
-      }, 500)
-    },
-  },
+  },*/
 }
 </script>
 

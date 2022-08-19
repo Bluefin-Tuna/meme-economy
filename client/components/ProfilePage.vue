@@ -17,8 +17,10 @@
 
 <script>
 export default {
-  data() {
-    return {}
+  setup(props) {
+    return {
+      ...mapState({ user: 'user/user' }),
+    }
   },
 }
 </script>

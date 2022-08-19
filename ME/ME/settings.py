@@ -149,3 +149,5 @@ CORS_ALLOWED_METHODS = [
     'GET',
     'POST'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
