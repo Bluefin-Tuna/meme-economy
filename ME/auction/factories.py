@@ -76,14 +76,11 @@ class AuctionFactory(DjangoModelFactory):
     @factory.post_generation
     def limit(self, create, extracted, **kwargs):
 
-        print('entered')
         if(extracted):
-            print('extracted found')
             self.limit = extracted
             return
         
         if(random.random() <= 0.667):
-            print('entered limit creation')
             self.limit = round(self.initial_price * (1 + abs(random.normalvariate(MU, SIGMA))))
             print(self.limit)
             return
@@ -107,6 +104,6 @@ class AuctionFactory(DjangoModelFactory):
             for obj in extracted:
                 self.memes.add(obj)
         
-        memes = MemeFactory.create_batch(random.randint(1, 3), owner = self.author)
-        for meme in memes:
-            self.memes.add(meme)
+        memes = MemeFactory.create(owner = self.author) # Change to .create_batch() in order to enable the full functionality of the O2M relationship.
+        # for meme in memes: # Uncomment for O2M relationship.
+        self.memes.add(memes)
